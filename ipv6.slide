@@ -1,0 +1,49 @@
+IPv6
+11 Feb 2016
+Tags: IPv6
+
+James Rivett-Carnac
+Pivotal Labs
+jrivettcarnac@pivotal.io
+http://github.com/yarbelk
+@yarbelk
+
+* IP
+
+ - What problem does it solve
+ - IPX
+ - IPv5
+ - IPv6
+
+* Problem
+
+Computers need to talk to address each other in a reliable maner.
+These addresses need to be routable across networks.  As such,
+protocols that solve this are in the OSI Layer 3 (Network) layer,
+being that they are about addressing nodes.  Messages must be
+able to be routed through this network.
+
+There were several standards and protocols invented to deal with
+this.
+
+** Layer 3
+
+There are Many Protocols that live in this layer:
+
+- IPv4/IPv6
+- ICMP (ping)
+- IPX
+- IEEE 802.1aq (Shortest Path Bridging)
+
+** IPv4/IPv6 and IPX
+
+Because I miss my DOS games, and IPX had some interesting
+decisions.
+
+** The Local Area Network
+
+The first domain to look at is the local address.
+
+* v4
+
+ - 127.0.0.1
