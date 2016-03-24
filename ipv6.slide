@@ -1,49 +1,244 @@
-IPv6
-11 Feb 2016
-Tags: IPv6
+ipv6
+11 feb 2016
+tags: ipv6
 
-James Rivett-Carnac
-Pivotal Labs
+james rivett-carnac
+pivotal labs
 jrivettcarnac@pivotal.io
 http://github.com/yarbelk
 @yarbelk
 
 * IP
 
- - What problem does it solve
- - IPX
- - IPv5
- - IPv6
+ There is no place like ::1
 
 * Problem
 
 Computers need to talk to address each other in a reliable maner.
-These addresses need to be routable across networks.  As such,
-protocols that solve this are in the OSI Layer 3 (Network) layer,
-being that they are about addressing nodes.  Messages must be
-able to be routed through this network.
 
 There were several standards and protocols invented to deal with
 this.
 
-** Layer 3
+* Immediate problem
 
-There are Many Protocols that live in this layer:
+All IPv4 ranges have now been assigned.  No new Tier 1 ISPs
+will be able to have a block assigned to them.
+
+Wierd shennanigans will have to ensue for them to provide
+internet to people.
+
+* Layer 3
+
+there are many protocols that live in this layer:
 
 - IPv4/IPv6
-- ICMP (ping)
-- IPX
-- IEEE 802.1aq (Shortest Path Bridging)
+- ICMP (ping and related)
+- ipx
+- ieee 802.1aq (shortest path bridging)
+- many more, which no one cares about
 
-** IPv4/IPv6 and IPX
+* IPv4/IPv6
 
-Because I miss my DOS games, and IPX had some interesting
-decisions.
+Whats in an address
 
-** The Local Area Network
+* IPv4/IPv6 Addresses
 
-The first domain to look at is the local address.
+IPv4: 32 bit
 
-* v4
+  x.x.x.x
 
- - 127.0.0.1
+IPv6: 128 bit
+
+  x:x:x:x:x:x:x
+
+* IPv4/IPv6 Addresses
+
+How many addresses?
+
+  IPv4:                                       ~4,294,967,296
+
+  IPv6: ~339,000,000,000,000,000,000,000,000,000,000,000,000
+
+* IPv4/IPv6 Addresses
+
+Properties of Addresses
+
+- aggregateable
+- Hierarchy
+- Subnets
+- Unique
+
+* IPV4/IPv6 Addresses
+
+  127.0.0.0/8
+
+  0.255.255.255
+
+* Formating
+
+- IPv4 is a 32 bit int, but most commonly formated
+
+- `192.168.100.14`, where each part is an 8 bit word
+- CIDR Notation (Classless Inter-Domain Routing)
+- `192.168.100.14/24`
+
+CIDR notation maps an IPv4 address with a routing prefix.
+
+  192.168.100.14/24
+  ^^^ ^^^ ^^^
+  24 bits are the prefixo
+
+* CIDR
+
+
+  192.168.100.14/24
+  ^^^ ^^^ ^^^
+
+This is easier to see in another representation: Binary!
+
+  01111111.10101000.01100100.00001110/24
+  ^^^^^^^^ ^^^^^^^^ ^^^^^^^^
+  24 most significant bits
+
+It can also be written as a netmask:
+
+  192.168.100.14 with netmask of 255.255.255.0
+
+- The maximum number of addresses in a subnet is the number
+  of unique IP address you can make with the left over bits
+
+* IPv6 Notation
+
+- Same Same
+
+* IPv6 Notation
+
+If we were to write it the same way as IPv4
+
+  0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1
+
+- This looks _silly_.
+- We use 16 bits instead (in Hexadecimal)
+
+  0:0:0:0:0:0:0:1
+
+* Compact Form
+
+To be honest, this also looks kind of silly.
+
+- You can compress *one* group of contiguous zeros, by using `::`
+
+  0000:0000:0000:0000:0000:0000:0000:0001
+
+Becomes
+
+  ::1
+
+* Compact Form
+
+- A more real example
+
+  2001:0db8:0000:0000:0000:ff00:0042:8329
+            ^^^^ ^^^^ ^^^^
+
+Becomes
+
+  2001:0db8::ff00:0042:8329
+           ^^
+
+- Don't compress a single zero
+
+  2001:db8:0000:1:1:1:1:1  > 2001:db8:0:1:1:1:1:1
+
+- Most significant Zeros are not needed
+
+  2001:db8::ff00:42:8329
+
+
+* Compact Form: Quiz
+
+Why does this not work?
+
+  202F::dbe::1
+
+* IPv6 Subnet
+
+- Much the same as IPv4, you can specify a prefix that is used for routing
+
+  2001:db8:1234:1:1:1:1:1/48
+  ^^^^ ^^^ ^^^^ 
+
+Which is the address range from
+
+  2001:db8:1234:0:0:0:0:0  up to 2001:db8:1234:ffff:ffff:ffff:ffff:ffff
+
+The first 48 bits are you prefix.
+
+* The Prefix and Routing
+
+- The prefix allows quick lookups of addresses and efficient usage of space
+- IP addresses are handed out in blocks, and these tend to be broken
+  up into smaller blocks.
+- You can search using tree traversal down to the subnet level, and then do
+  a flat search
+
+- This is the same for IPv4 and IPv6
+
+* Prefix and Routing
+
+- Singtel gets given the block of addresses 123.0.0.0/8
+- they can then sub-divide this into 123.0.0.0/9 and 123.128.0.0/9
+- And so on; to find a specific address, you need to route to the subdomain
+
+.image CIDR_Address.svg.png
+.caption from wikipedia [[https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation][CIDR]]
+
+* Packet
+
+.image ipv4_vs_ipv6-packet.png
+.caption from Ars Technical [[http://arstechnica.com/business/2016/01/ipv6-celebrates-its-20th-birthday-by-reaching-10-percent-deployment/2/][IPv6 celebrates its 20th birthday by reaching 10 percent deployment]]
+
+* Assignment
+
+- Stateless address autoconfiguration (SLAAC)
+- Using Prefix fe80::/64, using the Neighbor Discovery Protocol
+- Uses the Modified EUI-64
+
+.image ipv6-eui-64-ff-fe.png
+.caption taken from [https://networklessons.com/ipv6/ipv6-eui-64-explained/][networklessons]]
+
+* Assignment (DHCP)
+
+- Just like IPv4 there is Dynamic Host Configuration Protocol (version 6)
+- Invented by annoyed sysadmins who want to control address values
+- Also lets setting of things like the DNS, though it isn't needed for this
+
+* Private Networks
+
+In IPv4 you had 10.0.0.0/8, 172.16.0.0/20, 192.169.0.0/16
+
+In IPv6 you have Unique Local Unicast Addresses
+
+      +--------+-+------------+-----------+----------------------------+
+      | 7 bits |1|  40 bits   |  16 bits  |          64 bits           |
+      +--------+-+------------+-----------+----------------------------+
+      | Prefix |L| Global ID  | Subnet ID |        Interface ID        |
+      +--------+-+------------+-----------+----------------------------+
+
+* Unique Local Unicast Addresses
+
+- Prefix FC00::/7 prefix
+- L: 1
+- Global ID: Randomly generated
+- Subnet ID
+
+* Example Unique Address
+
+.link http://simpledns.com/private-ipv6.aspx
+
+* DNS
+
+DNS is really simple if you know IPv4 DNS
+
+- The `A` Record from IPv4 Becomes the `AAAA` Record for IPv6
+- They function exactly the same way

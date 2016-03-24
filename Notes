@@ -1,0 +1,92 @@
+* IP
+* Problem
+* Immediate problem
+* Layer 3
+* IPv4/IPv6
+* IPv4/IPv6 Addresses
+* IPv4/IPv6 Addresses
+* IPv4/IPv6 Addresses
+* IPv4/IPv6 Addresses
+* IPv4/IPv6 Addresses
+* IPv4/IPv6 Addresses
+* IPV4/IPv6 Addresses
+* Formating
+* CIDR
+
+This is an important thing to note in IPv4, because
+the same concept can be applied to IPv6, and it helps to
+understand this with the much more familliar v4s.
+
+- In this case, it is 256 addresses (not really, there
+  are special addresses as well)
+
+* IPv6 Notation
+
+** IPv6 Notation
+
+- We start off with 128 bits.  writing them in 8 bit chunks just is silly
+
+* Compact Form
+- You can remove at most one set of contigious zeros
+- You don't write your age in forms as 0031 right?
+
+* Compact Form (Quiz)
+
+It is ambigious, I don't know how many zeros to put in
+each group
+
+* Packet
+
+Total Length vs Payload Length
+
+- Total Length: IPv4 is the Total Packet Length (inc header)
+- Payload Length: IPv6 is only the payload length.
+  There is important because IPv4 has a variable length header.
+  IPv6 doesn't.
+
+Time To Live:
+- was supposed to be milliseconds, it was always
+implemented as hop count (miliseconds are expensive)
+- IPv6 changed this
+
+Protocol vs Next Header, tells you what protocol (TCP vs UDP),
+just a new name
+
+- IPv6 Doesn't have room for more options.
+
+* Assignment
+
+Uses the prefix fe80::/64, NDP finds other nodes on the network,
+finds the routers and DNS and can determin the address prefix
+
+it populates the lower 64 bits with the modified EUI-64 which is taken
+from the mac address
+
+- There are secure forms of the Neighbor Discovery Protocol ( _Secure_ Neighbour Discovery Protocol)
+
+* Private Networks
+
+Really low chance of collisions
+
+   The following table shows the probability of a collision for a range
+   of connections using a 40-bit Global ID field.
+
+      Connections      Probability of Collision
+
+          2                1.81*10^-12
+         10                4.54*10^-11
+        100                4.54*10^-09
+       1000                4.54*10^-07
+      10000                4.54*10^-05
+
+   Based on this analysis, the uniqueness of locally generated Global
+   IDs is adequate for sites planning a small to moderate amount of
+   inter-site communication using locally generated Global IDs.
+
+* DNS
+
+Simply because the `A` record *MUST* be an IPv4, you can't
+reuse it for IPv6, so the `AAAA` record was created, which
+functions in exactly the same way
+
+* Tunneling

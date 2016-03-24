@@ -1,0 +1,66 @@
+How you represent your IP address
+
+
+Security
+Subverted
+DHCP/Assignment
+DNS
+Routing
+
+Anycast
+
+Unicast
+
+Multicast
+
+# Private Networks vs Public
+
+Defined as : http://www.rfc-editor.org/rfc/rfc4193.txt
+
+Unique Local IPv6 Unicast Addresses rfc4193
+
+The Local IPv6 addresses are created using a pseudo-randomly allocated
+global ID.
+
+They have the following format:
+
+| 7 bits |1|  40 bits   |  16 bits  |          64 bits           |
++--------+-+------------+-----------+----------------------------+
+| Prefix |L| Global ID  | Subnet ID |        Interface ID        |
++--------+-+------------+-----------+----------------------------+
+
+Where:
+
+  Prefix                  FC00::/7 Prefix to ID Local IPv6 unicast
+                          addresses.
+  L                       Set to 1 if the prefix is locally assigned.
+                          Set to 0 may be definde in the future.
+  Global ID               40-bit global identifier used to create a
+                          globally unique prefix.
+  Subnet ID               16-bit subnet ID is an indentifier of a
+                          subnet within the site.
+  Interface ID            64-bit Interface ID as defined in [ADDARCH]
+
+This results in:
+
+     Prefix  Global ID     Number of          Prefixes    % of IPv6
+             Length        /48 Prefixes       per Person  Address Space
+
+    /7        41         2,199,023,255,552    236         0.781%
+
+
+These are considered *globally* unique, which, with the probability
+of collisions is extreemly low ( 10000 different Global IDs networked
+results in `4.54*10^-05` chance of collision), you don't need to
+worry about merging networks.  Routing between these has to be
+explicit, the contract with the router is that these are *local*
+addresses, and can only be linked explicitly.
+
+so, Really Big Number of spaces, get yours today.
+
+NAT
+
+Why it exists
+
+Transition attepts; Tunnling 6 through 4, tunnling 4 through 6
+
